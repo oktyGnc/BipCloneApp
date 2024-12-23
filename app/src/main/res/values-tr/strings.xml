@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Bip App</string>
+    <string name="messagestop">Mesajlar</string>
+    <string name="chats">Sohbetler</string>
+    <string name="services">Hizmetler</string>
+    <string name="channels">Kanallar</string>
+    <string name="status">Durum</string>
+    <string name="messagesbottom">Mesajlar</string>
+    <string name="calls">Aramalar</string>
+    <string name="discover">Keşfet</string>
+    <string name="more">Daha Fazla</string>
+</resources>

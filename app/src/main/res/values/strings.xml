@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Bip App</string>
+    <string name="messagestop">Messages</string>
+    <string name="chats">Chats</string>
+    <string name="services">Services</string>
+    <string name="channels">Channels</string>
+    <string name="status">Status</string>
+    <string name="messagesbottom">Messages</string>
+    <string name="calls">Calls</string>
+    <string name="discover">Discover</string>
+    <string name="more">More</string>
+</resources>
