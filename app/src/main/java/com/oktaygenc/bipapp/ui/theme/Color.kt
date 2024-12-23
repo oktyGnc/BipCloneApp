@@ -19,5 +19,10 @@ val TextGrey = Color(0xFF757575)
 val TextWhite = Color(0xFFFFFFFF)
 val TextRed = Color(0xFFFF0000)
 
+//Dark Theme Colors
+val AnaColorDark = Color(0XFF000000)
+val SecondColorDark = Color(0XFF979797)
+val TextWhiteDark = Color(0xFFFFFFFF)
+
 
 

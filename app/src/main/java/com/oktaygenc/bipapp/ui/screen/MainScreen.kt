@@ -2,6 +2,7 @@ package com.oktaygenc.bipapp.ui.screen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -42,7 +43,9 @@ import com.oktaygenc.bipapp.R
 import com.oktaygenc.bipapp.ui.component.IconButtonWithText
 import com.oktaygenc.bipapp.ui.component.MessageItem
 import com.oktaygenc.bipapp.ui.theme.AnaColor
+import com.oktaygenc.bipapp.ui.theme.AnaColorDark
 import com.oktaygenc.bipapp.ui.theme.SecondColor
+import com.oktaygenc.bipapp.ui.theme.SecondColorDark
 import com.oktaygenc.bipapp.ui.theme.TextBlack
 import com.oktaygenc.bipapp.ui.theme.TextRed
 import com.oktaygenc.bipapp.ui.theme.TextWhite
@@ -50,26 +53,30 @@ import com.oktaygenc.bipapp.ui.theme.roboto
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainScreen() {
+fun MainScreen(darkTheme: Boolean = isSystemInDarkTheme()) {
     var selectedTabIndex by remember { mutableIntStateOf(0) }
+    var selectedIndex by remember { mutableIntStateOf(0) }
+
     val tabs = listOf(
         stringResource(R.string.chats),
         stringResource(R.string.services),
         stringResource(R.string.channels),
     )
-    var selectedIndex by remember { mutableIntStateOf(0) }
+
 
     Scaffold(topBar = {
         Column {
             TopAppBar(modifier = Modifier.height(50.dp),
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                    containerColor = AnaColor,
+                    containerColor = if (darkTheme) AnaColorDark else AnaColor,
                     titleContentColor = TextWhite,
                     actionIconContentColor = TextWhite
                 ),
                 navigationIcon = {
                     Image(
-                        painter = painterResource(id = R.drawable.bipicon),
+                        painter = if (darkTheme) painterResource(id = R.drawable.bipdark) else painterResource(
+                            id = R.drawable.bipicon
+                        ),
                         contentDescription = "",
                         modifier = Modifier
                             .padding(start = 8.dp)
@@ -110,8 +117,8 @@ fun MainScreen() {
                 })
 
             TabRow(selectedTabIndex = selectedTabIndex,
-                containerColor = TextWhite,
-                contentColor = SecondColor,
+                containerColor = if (darkTheme) AnaColorDark else TextWhite,
+                contentColor = if (darkTheme) SecondColorDark else SecondColor,
                 modifier = Modifier.fillMaxWidth(),
                 indicator = { tabPositions ->
                     if (selectedTabIndex < tabPositions.size) {
@@ -128,7 +135,14 @@ fun MainScreen() {
                         onClick = { selectedTabIndex = index },
                         text = {
                             Text(
-                                text = title, fontSize = 15.sp, fontWeight = FontWeight.Bold
+                                text = title,
+                                fontSize = 15.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = if (darkTheme) {
+                                    if (selectedTabIndex == index) SecondColor else SecondColorDark
+                                } else {
+                                    if (selectedTabIndex == index) SecondColor else SecondColor
+                                }
                             )
                         })
                 }
@@ -136,7 +150,9 @@ fun MainScreen() {
         }
     }, bottomBar = {
         BottomAppBar(
-            modifier = Modifier.fillMaxWidth(), containerColor = TextWhite, contentColor = TextBlack
+            modifier = Modifier.fillMaxWidth(),
+            containerColor = if (darkTheme) AnaColorDark else TextWhite,
+            contentColor = TextBlack
         ) {
             Row(
                 Modifier
@@ -172,7 +188,7 @@ fun MainScreen() {
             modifier = Modifier
                 .padding(paddingValues)
                 .fillMaxSize()
-                .background(TextWhite)
+                .background(if (darkTheme) AnaColorDark else TextWhite)
         ) {
             items(10) {
                 MessageItem(
@@ -182,11 +198,9 @@ fun MainScreen() {
                     "10:30",
                     true
                 )
-                MessageItem(R.drawable.sampleimage8,
-                    "Babam",
-                    "Gece geç kalma!",
-                    "17:55",
-                    true)
+                MessageItem(
+                    R.drawable.sampleimage8, "Babam", "Gece geç kalma!", "17:55", true
+                )
                 MessageItem(
                     R.drawable.sampleimage2,
                     "Kübra",
@@ -209,11 +223,7 @@ fun MainScreen() {
                     true
                 )
                 MessageItem(
-                    R.drawable.sampleimage4,
-                    "Mustafa Bey",
-                    "Yarın buluşalım mı?",
-                    "17:20",
-                    false
+                    R.drawable.sampleimage4, "Mustafa Bey", "Yarın buluşalım mı?", "17:20", false
                 )
                 MessageItem(
                     R.drawable.sampleimage5,
@@ -223,11 +233,7 @@ fun MainScreen() {
                     false
                 )
                 MessageItem(
-                    R.drawable.sampleimage6,
-                    "Ali",
-                    "Bugünkü antrenman iptal",
-                    "14:30",
-                    false
+                    R.drawable.sampleimage6, "Ali", "Bugünkü antrenman iptal", "14:30", false
                 )
                 MessageItem(
                     R.drawable.sampleimage10,
@@ -237,11 +243,7 @@ fun MainScreen() {
                     false
                 )
                 MessageItem(
-                    R.drawable.sampleimage7,
-                    "Can Bey",
-                    "Proje sunumu hazır mı?",
-                    "16:10",
-                    false
+                    R.drawable.sampleimage7, "Can Bey", "Proje sunumu hazır mı?", "16:10", false
                 )
             }
         }

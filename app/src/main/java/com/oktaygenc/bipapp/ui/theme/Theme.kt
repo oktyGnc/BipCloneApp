@@ -45,7 +45,7 @@ fun BipAppTheme(
     val systemUiController = rememberSystemUiController()
     SideEffect {
         systemUiController.setStatusBarColor(
-            color = AnaColor, darkIcons = false
+            color = if(darkTheme) AnaColorDark else AnaColor, darkIcons = false
         )
     }
 

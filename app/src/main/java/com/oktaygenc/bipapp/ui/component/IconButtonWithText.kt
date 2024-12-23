@@ -1,6 +1,7 @@
 package com.oktaygenc.bipapp.ui.component
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.size
@@ -15,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.oktaygenc.bipapp.ui.theme.IconColor
 import com.oktaygenc.bipapp.ui.theme.SecondColor
+import com.oktaygenc.bipapp.ui.theme.SecondColorDark
 
 @Composable
 fun IconButtonWithText(
@@ -23,8 +25,10 @@ fun IconButtonWithText(
     isSelected: Boolean,
     onClick: () -> Unit,
 ) {
+    val darkTheme: Boolean = isSystemInDarkTheme()
+
     val selectedColor = SecondColor
-    val defaultColor = IconColor
+    val defaultColor = if (darkTheme) SecondColorDark else IconColor
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -39,7 +43,10 @@ fun IconButtonWithText(
                 .clickable(onClick = onClick)
         )
         Text(
-            text = text,fontWeight = FontWeight.Bold ,fontSize = 12.sp, color = if (isSelected) selectedColor else defaultColor
+            text = text,
+            fontWeight = FontWeight.Bold,
+            fontSize = 12.sp,
+            color = if (isSelected) selectedColor else defaultColor
         )
     }
 }

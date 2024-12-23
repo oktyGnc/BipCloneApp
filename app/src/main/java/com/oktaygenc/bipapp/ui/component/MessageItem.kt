@@ -3,6 +3,7 @@ package com.oktaygenc.bipapp.ui.component
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -26,11 +27,21 @@ import androidx.compose.ui.unit.sp
 import com.oktaygenc.bipapp.R
 import com.oktaygenc.bipapp.ui.theme.AnaColor
 import com.oktaygenc.bipapp.ui.theme.IconColor
+import com.oktaygenc.bipapp.ui.theme.SecondColorDark
 import com.oktaygenc.bipapp.ui.theme.TextBlack
 import com.oktaygenc.bipapp.ui.theme.TextGrey
+import com.oktaygenc.bipapp.ui.theme.TextWhiteDark
 
 @Composable
-fun MessageItem(imageRes: Int, name: String, lastMessage: String, time: String, read: Boolean) {
+fun MessageItem(
+    imageRes: Int,
+    name: String,
+    lastMessage: String,
+    time: String,
+    read: Boolean,
+) {
+    val darkTheme: Boolean = isSystemInDarkTheme()
+
     Row(modifier = Modifier
         .fillMaxWidth()
         .clickable {}
@@ -39,7 +50,7 @@ fun MessageItem(imageRes: Int, name: String, lastMessage: String, time: String, 
             modifier = Modifier
                 .size(50.dp)
                 .clip(CircleShape)
-                .background(IconColor)
+                .background(if (darkTheme) SecondColorDark else IconColor)
         ) {
             Image(painterResource(imageRes), "", Modifier.fillMaxSize())
         }
@@ -49,7 +60,7 @@ fun MessageItem(imageRes: Int, name: String, lastMessage: String, time: String, 
         Column(
             modifier = Modifier.weight(1f)
         ) {
-            Text(text = name, fontWeight = FontWeight.Bold, fontSize = 17.sp, color = TextBlack)
+            Text(text = name, fontWeight = FontWeight.Bold, fontSize = 17.sp, color = if (darkTheme) TextWhiteDark else TextBlack)
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Icon(
                     painter = if (read) {
@@ -59,13 +70,13 @@ fun MessageItem(imageRes: Int, name: String, lastMessage: String, time: String, 
                     }, contentDescription = "", tint = if (read) {
                         AnaColor
                     } else {
-                        TextGrey
+                        if (darkTheme) SecondColorDark else TextGrey
                     }, modifier = Modifier.size(18.dp)
                 )
                 Spacer(modifier = Modifier.width(4.dp))
-                Text(text = lastMessage, color = TextGrey)
+                Text(text = lastMessage, color = if (darkTheme) SecondColorDark else TextGrey)
             }
         }
-        Text(text = time, color = TextGrey, fontSize = 10.sp, fontWeight = FontWeight.Bold)
+        Text(text = time, color = if (darkTheme) SecondColorDark else TextGrey, fontSize = 11.sp, fontWeight = FontWeight.Bold)
     }
 }
